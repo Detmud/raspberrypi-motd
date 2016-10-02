@@ -4,7 +4,7 @@ clear
 VAR_UPTIME="$(uptime | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* user.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours, \2 minutes/')"
 VAR_MEMORY="$(free -m | awk 'NR==2 { printf "Total: %sMB, Used: %sMB, Free: %sMB",$2,$3,$4; }')"
 VAR_SPACE="$(df -h ~ | awk 'NR==2 { printf "Total: %sB, Used: %sB, Free: %sB",$2,$3,$4; }')"
-VAR_LOADAVG="$(uptime |  awk '{print $8,$9,$10}')"
+VAR_LOADAVG="$(cat /proc/loadavg | awk '{print $1,$2,$3}')"
 VAR_PROCESSES="$(ps ax | wc -l | tr -d " ")"
 VAR_IP_INTERN="$(hostname -I)"
 VAR_IP_EXTERN="$(wget -q -O - http://icanhazip.com/ | tail)"
